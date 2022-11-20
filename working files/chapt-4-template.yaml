@@ -1,0 +1,30 @@
+{
+  "variables":
+    {
+      "region": "AWS_REGION",
+      "aws_profile": "AWS_PROFILE",
+      "source_ami": "AMAZON LINUX AMI ID",
+      "instance_type": "EC2 INSTANCE TYPE",
+    },
+  "builders":
+    [
+      {
+        "type": "amazon-ebs",
+        "profile": "{{user 'aarondantley'}}",
+        "region": "{{user 'us-east-1'}}",
+        "instance_type": "{{user 't2.micro'}}",
+        "source_ami": "{{user 'ami-02b972fec07f1e659'}}",
+        "ssh_username": "ec2-user",
+        "ami_name": "jenkins-master-2.204.1",
+        "ami_descrption": "Amazon Linux Image with Jenkins Server",
+      },
+    ],
+  "provisioners":
+    [
+      {
+        "type": "shell",
+        "script": "./setup.sh",
+        "execute_command": "sudo -E -S sh '{{ .Path}}'",
+      },
+    ],
+}
